@@ -7,3 +7,14 @@ dependencies = [
     "pytest>=9.2.0",
     "pytest-django>=4.14.0",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ['.', 'ejercicio_3_auditoria_web']
+
+[tool.mypy]
+mypy_path = 'ejercicio_3_auditoria_web'
+ignore_missing_imports = true
+
+[tool.pyright]
+extraPaths = ['ejercicio_3_auditoria_web']
+

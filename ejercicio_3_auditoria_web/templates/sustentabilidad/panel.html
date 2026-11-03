@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo_panel }}</title>
+    <style>
+        :root {
+            --verde-eco: #10b981;
+            --verde-oscuro: #065f46;
+            --fondo: #f8fafc;
+            --texto: #1e293b;
+            --alerta: #ef4444;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--fondo);
+            color: var(--texto);
+            margin: 0;
+            padding: 2rem;
+        }
+        .contenedor {
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+        header {
+            background: linear-gradient(135deg, var(--verde-oscuro), var(--verde-eco));
+            color: white;
+            padding: 1.8rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        header h1 { margin: 0 0 0.5rem 0; font-size: 1.6rem; }
+        header p { margin: 0; opacity: 0.9; font-size: 0.95rem; }
+        .tarjetas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .tarjeta {
+            background: white;
+            padding: 1.4rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--verde-eco);
+        }
+        .tarjeta.critica { border-left-color: var(--alerta); }
+        .tarjeta h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #64748b;
+        }
+        .tarjeta .valor {
+            font-size: 1.65rem;
+            font-weight: 700;
+            color: var(--texto);
+        }
+        .tarjeta .subtexto {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 0.3rem;
+        }
+        .tabla-contenedor {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .tabla-contenedor h2 { margin-top: 0; font-size: 1.2rem; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        th, td {
+            text-align: left;
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background-color: #f1f5f9;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #475569;
+        }
+        .badge-max {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 0.2rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <header>
+            <h1>{{ titulo_panel }}</h1>
+            <p>Período Auditado: <strong>{{ periodo_auditado }}</strong> | Plantas Monitoreadas: <strong>{{ cantidad_plantas }}</strong></p>
+        </header>
+
+        <section class="tarjetas">
+            <div class="tarjeta">
+                <h3>Huella de Carbono Global</h3>
+                <div class="valor">{{ total_emisiones_kg }} kg CO₂eq</div>
+                <div class="subtexto">Factor de emisión auditado: 0.4 kg/kWh</div>
+            </div>
+            <div class="tarjeta">
+                <h3>Consumo Eléctrico Total</h3>
+                <div class="valor">{{ total_consumo_kwh }} kWh</div>
+                <div class="subtexto">Acumulado de {{ cantidad_plantas }} plantas</div>
+            </div>
+            <div class="tarjeta critica">
+                <h3>Planta de Mayor Consumo</h3>
+                <div class="valor" style="font-size: 1.25rem;">{{ planta_mayor_consumo }}</div>
+                <div class="subtexto">Pico registrado: {{ max_consumo_kwh }} kWh</div>
+            </div>
+        </section>
+
+        <section class="tabla-contenedor">
+            <h2>Desglose de Emisiones por Planta Industrial</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Planta Industrial</th>
+                        <th>Ubicación</th>
+                        <th>Consumo (kWh)</th>
+                        <th>Factor</th>
+                        <th>Emisiones (kg CO₂eq)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in detalle_plantas %}
+                    <tr>
+                        <td>
+                            <strong>{{ item.planta }}</strong>
+                            {% if item.planta == planta_mayor_consumo %}
+                                <span class="badge-max">Mayor Consumo</span>
+                            {% endif %}
+                        </body>
+                        <td>{{ item.ubicacion }}</td>
+                        <td>{{ item.consumo_kwh }} kWh</td>
+                        <td>{{ item.factor_emision }}</td>
+                        <td><strong>{{ item.emisiones_kg }} kg</strong></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>
