@@ -1,0 +1,27 @@
+[
+    {
+        "tipo": "DispositivoEcologico",
+        "codigo": "ECO-BAT-100",
+        "nombre": "Banco de Baterías Litio Ferrofosfato",
+        "precio": 1850.0,
+        "stock": 15
+    },
+    {
+        "tipo": "PanelSolar",
+        "codigo": "ECO-SOL-550",
+        "nombre": "Panel Solar Monocristalino Tier-1",
+        "precio": 295.5,
+        "stock": 40,
+        "potencia_watts": 550,
+        "eficiencia": 21.6
+    },
+    {
+        "tipo": "PanelSolar",
+        "codigo": "ECO-SOL-660",
+        "nombre": "Panel Solar Bifacial Industrial",
+        "precio": 380.0,
+        "stock": 25,
+        "potencia_watts": 660,
+        "eficiencia": 22.9
+    }
+]
